@@ -1,0 +1,26 @@
+version: "3"
+services:
+  rendertron:
+    image: rendertron/rendertron
+    container_name: rendertron
+    ports:
+      - "8081:8080"
+    environment:
+      - RENDERTRON_HEADLESS=true
+      - RENDERTRON_CACHE=true
+      - RENDERTRON_USER_AGENT=Googlebot
+      - RENDERTRON_TIMEOUT=30000
+      - RENDERTRON_MAX_REQUESTS=2
+      - RENDERTRON_CACHE_DURATION=3600
+      - RENDERTRON_DISABLE_JAVASCRIPT=false
+      - RENDERTRON_MAX_RETRIES=3
+      - RENDERTRON_RETRY_DELAY=1000
+      - RENDERTRON_LOG_LEVEL=info
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    volumes:
+      - ./logs:/var/log/rendertron
